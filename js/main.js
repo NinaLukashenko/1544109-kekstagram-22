@@ -24,7 +24,7 @@ randomNumber(2, 5);
 
 // ФУНКЦИЯ ДЛЯ ПРОВЕРКИ МАКСИМАЛЬНОЙ ДЛИНЫ СТРОКИ
 const checkMaxLength = function(text, maxLength) {
-  return (text.length <= maxLength) ? true : false;
+  return text.length <= maxLength;
 }
 
 checkMaxLength('abcdeff', 10);
