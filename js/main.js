@@ -76,6 +76,12 @@ const NAMES = [
 ];
 
 const PHOTO_INFO_COUNT = 25;
+const MIN_LIKES_COUNT = 15;
+const MAX_LIKES_COUNT = 200;
+const MIN_COMMENTS_COUNT = 1;
+const MAX_COMMENTS_COUNT = 8;
+const MIN_AVATAR = 1;
+const MAX_AVATAR = 6;
 
 // Выбираем рандомный элемент из массива
 const getRandomArrayElement = (array) => {
@@ -102,7 +108,7 @@ const shuffleArrayElements = (array) => {
 const createOneComment = (uniqueRandomIndex) => {
   return {
     id: uniqueRandomIndex,
-    avatar: 'img/avatar-'+ randomNumber(1, 6) + '.svg',
+    avatar: 'img/avatar-'+ randomNumber(MIN_AVATAR, MAX_AVATAR) + '.svg',
     message: getRandomArrayElement(MESSAGES),
     name: getRandomArrayElement(NAMES),
   };
@@ -111,13 +117,13 @@ const createOneComment = (uniqueRandomIndex) => {
 // Создаем массив с обьектами, где каждый обьект это отдельный комментарий
 const createComments = (photoObjectIndex) => {
   // Число комментариев для каждого фото будет рандомным от 1 до 8
-  const COMMENTS_QUANTITY = randomNumber(1, 8);
+  const commentsQuantity = randomNumber(MIN_COMMENTS_COUNT, MAX_COMMENTS_COUNT);
 
   // Определяем коеффициет, чтобы айдишки комментариев не повторялись у разных обьектов (с описаниями фото)
-  const koef = 8 * (photoObjectIndex - 1);
+  const koef = MAX_COMMENTS_COUNT * (photoObjectIndex - 1);
 
   // Формируем массив с обьектами (комментариями)
-  return new Array(COMMENTS_QUANTITY).fill(null).map((item, index) => createOneComment(commentsIds[index + (koef)]));
+  return new Array(commentsQuantity).fill(null).map((item, index) => createOneComment(commentsIds[index + (koef)]));
 }
 
 // Формируем один обьект (описание фотографии)
@@ -126,14 +132,13 @@ const createPhotoInfo = (uniqueIndex) => {
     id: uniqueIndex,
     url: 'photos/' + uniqueIndex + '.jpg',
     description: getRandomArrayElement(DESCRIPTIONS),
-    likes: randomNumber(15, 200),
+    likes: randomNumber(MIN_LIKES_COUNT, MAX_LIKES_COUNT),
     comments: createComments(uniqueIndex),
   };
 }
 
-// Максимальное число комментарие 25 * 8 = 200
-// (всего 25 обьектов с описанием фото и в каждои из них может быть максимум 8 комментариев)
-const commentsIds = new Array(200).fill(null).map((item, index) => index);
+// Формируем массив с айдишками для комментариев
+const commentsIds = new Array(PHOTO_INFO_COUNT * MAX_COMMENTS_COUNT).fill(null).map((item, index) => index);
 
 // перемешиваем массив чтобы айдишки получились рандомные у комментариев
 shuffleArrayElements(commentsIds);
@@ -141,4 +146,4 @@ shuffleArrayElements(commentsIds);
 // Формируем массив с обьектами, каждый обьект - описание фотографии
 const photoInfo = new Array(PHOTO_INFO_COUNT).fill(null).map((item, index) => createPhotoInfo(index + 1));
 
-photoInfo();
+photoInfo;
