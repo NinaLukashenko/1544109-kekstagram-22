@@ -116,4 +116,4 @@ shuffleArrayElements(commentsIds);
 // Формируем массив с обьектами, каждый обьект - описание фотографии
 const photoInfo = new Array(PHOTO_INFO_COUNT).fill(null).map((item, index) => createPhotoInfo(index + 1));
 
-photoInfo;
+export { photoInfo };
