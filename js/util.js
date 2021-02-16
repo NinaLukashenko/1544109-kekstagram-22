@@ -26,4 +26,14 @@ const checkMaxLength = function(text, maxLength) {
   return text.length <= maxLength;
 }
 
-export { randomNumber, checkMaxLength };
+// ФУНКЦИЯ ДЛЯ ПРОВЕРКИ НАЖАТИЯ КЛАВИШИ Escape
+const isEscEvent = (evt) => {
+  return (evt.key === 'Escape' || evt.key === 'Esc');
+}
+
+// ФУНКЦИЯ ДЛЯ ПРОВЕРКИ НАЖАТИЯ КЛАВИШИ Enter
+const isEnterEvent = (evt) => {
+  return evt.key === 'Enter';
+}
+
+export { randomNumber, checkMaxLength, isEscEvent, isEnterEvent };
