@@ -1,5 +1,5 @@
 // Ф-Я, ВОЗВРАЩАЕТ СЛУЧАЙНОЕ ЦЕЛОЕ ЧИСЛО
-const randomNumber = function(from, to) {
+const randomNumber = (from, to) => {
   // если хотя бы одно из значений отрицательное
   if (from < 0 || to < 0) {
     return alert('Both numbers should be more than zero!');
@@ -22,18 +22,18 @@ const randomNumber = function(from, to) {
 
 
 // ФУНКЦИЯ ДЛЯ ПРОВЕРКИ МАКСИМАЛЬНОЙ ДЛИНЫ СТРОКИ
-const checkMaxLength = function(text, maxLength) {
+const checkMaxLength = (text, maxLength) => {
   return text.length <= maxLength;
-}
+};
 
 // ФУНКЦИЯ ДЛЯ ПРОВЕРКИ НАЖАТИЯ КЛАВИШИ Escape
 const isEscEvent = (evt) => {
   return (evt.key === 'Escape' || evt.key === 'Esc');
-}
+};
 
 // ФУНКЦИЯ ДЛЯ ПРОВЕРКИ НАЖАТИЯ КЛАВИШИ Enter
 const isEnterEvent = (evt) => {
   return evt.key === 'Enter';
-}
+};
 
 export { randomNumber, checkMaxLength, isEscEvent, isEnterEvent };

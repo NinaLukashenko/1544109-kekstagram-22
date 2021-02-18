@@ -58,7 +58,7 @@ const renderComments = (picture) => {
     commentElement.querySelector('.social__text').textContent = item.message;
 
     commentListFragment.appendChild(commentElement);
-  })
+  });
 
   // Находим старый блок комментариев
   const commentListElement = document.querySelector('.social__comments');

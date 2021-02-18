@@ -22,7 +22,7 @@ pictureListElement.addEventListener('click', (evt) => {
 });
 
 // Ф-я для ОТОБРАЖЕНИЯ МОДАЛЬНОЙ ФОРМЫ с полноэкранной фотографией
-const openPictureModal = function (element) {
+const openPictureModal = (element) => {
   renderFullScreenPicture(element.id);
   // Убираем класс, который скрывает модальную форму с полноэкранным фото
   pictureModalElement.classList.remove('hidden');
@@ -39,15 +39,15 @@ const openPictureModal = function (element) {
 
   // Добавляем обработчик на нажатие клавиши Esc
   document.addEventListener('keydown', onPopupEscKeydown);
-}
+};
 
 // Ф-я для СКРЫТИЯ МОДАЛЬНОЙ ФОРМЫ с полноэкранной фотографией
-const closePictureModal = function() {
+const closePictureModal = () => {
   pictureModalElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
 
-  document.removeEventListener('keydown', onPopupEscKeydown)
-}
+  document.removeEventListener('keydown', onPopupEscKeydown);
+};
 
 // Ф-я для обработчика события нажатия клавиши Esc при открытой модальной форме
 const onPopupEscKeydown = (evt) => {
@@ -55,7 +55,4 @@ const onPopupEscKeydown = (evt) => {
     evt.preventDefault();
     closePictureModal();
   }
-}
-
-
-// Подставлять необходимые значения (предварительно добавить айдишки к фоткам)
+};
