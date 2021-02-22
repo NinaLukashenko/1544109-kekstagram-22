@@ -1,5 +1,25 @@
 import { isEscEvent } from './util.js';
 
+const SCALE_DEFAULT = 100;
+const SCALE_STEP = 25;
+const SCALE_MIN = 25;
+const SCALE_MAX = 100;
+const GRAYSCALE_MIN = 0;
+const GRAYSCALE_MAX = 1;
+const GRAYSCALE_STEP = 0.1;
+const SEPIA_MIN = 0;
+const SEPIA_MAX = 1;
+const SEPIA_STEP = 0.1;
+const INVERT_MIN = 0;
+const INVERT_MAX = 100;
+const INVERT_STEP = 1;
+const BLUR_MIN = 0;
+const BLUR_MAX = 3;
+const BLUR_STEP = 0.1;
+const BRIGHTNESS_MIN = 1;
+const BRIGHTNESS_MAX = 3;
+const BRIGHTNESS_STEP = 0.1;
+
 // Находим контрол загрузки фото
 const pictureUploadElement = document.querySelector('#upload-file');
 //  Находим форум редактирования фото
@@ -14,10 +34,6 @@ const scaleSmallerElement = document.querySelector('.scale__control--smaller');
 const scaleBiggerElement = document.querySelector('.scale__control--bigger');
 const scaleValueElement = document.querySelector('.scale__control--value');
 const picturePreviewElement = document.querySelector('.img-upload__preview img');
-const SCALE_DEFAULT_VALUE = 100;
-const SCALE_STEP = 25;
-const SCALE_MIN_VALUE = 25;
-const SCALE_MAX_VALUE = 100;
 
 // Наложение эффекта на изображение:
 const effectListElement = document.querySelector('.effects__list');
@@ -27,7 +43,8 @@ const effectLevelValueElement = document.querySelector('.effect-level__value');
 
 // Ф-я для ОТОБРАЖЕНИЯ ФОРМЫ РЕДАКТИРОВАНИЯ ФОТО
 const openPictureUploadModal = () => {
-  scaleValueElement.value = SCALE_DEFAULT_VALUE;
+  let currenScaleValue = SCALE_DEFAULT;
+  scaleValueElement.value = `${currenScaleValue}%`;
 
   pictureUploadModalElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
@@ -37,23 +54,19 @@ const openPictureUploadModal = () => {
 
   // Обработчик наж. кн. масштабирования Минус
   scaleSmallerElement.addEventListener('click', () => {
-    // Считываем число без процентов
-    const currenScaleValue = parseFloat(scaleValueElement.value);
-
-    if (currenScaleValue > SCALE_MIN_VALUE) {
-      scaleValueElement.value = `${currenScaleValue - SCALE_STEP}%`;
-      picturePreviewElement.style.transform = `scale(${(currenScaleValue - SCALE_STEP) / 100})`;
+    if (currenScaleValue > SCALE_MIN) {
+      currenScaleValue -= SCALE_STEP;
+      scaleValueElement.value = `${currenScaleValue}%`;
+      picturePreviewElement.style.transform = `scale(${currenScaleValue / 100})`;
     }
-
   });
 
   // Обработчик наж. кн. масштабирования Плюс
   scaleBiggerElement.addEventListener('click', () => {
-    const currenScaletValue = parseFloat(scaleValueElement.value);
-
-    if (currenScaletValue < SCALE_MAX_VALUE) {
-      scaleValueElement.value = `${currenScaletValue + SCALE_STEP}%`;
-      picturePreviewElement.style.transform = `scale(${(currenScaletValue + SCALE_STEP) / 100})`;
+    if (currenScaleValue < SCALE_MAX) {
+      currenScaleValue += SCALE_STEP;
+      scaleValueElement.value = `${currenScaleValue}%`;
+      picturePreviewElement.style.transform = `scale(${currenScaleValue / 100})`;
     }
   });
 
@@ -74,19 +87,19 @@ const openPictureUploadModal = () => {
           picturePreviewElement.style.filter = '';
           break;
         case 'chrome':
-          createEffectLevelSlider(0, 1, 0.1, currentEffectValue);
+          createEffectLevelSlider(GRAYSCALE_MIN, GRAYSCALE_MAX, GRAYSCALE_STEP, currentEffectValue);
           break;
         case 'sepia':
-          createEffectLevelSlider(0, 1, 0.1, currentEffectValue);
+          createEffectLevelSlider(SEPIA_MIN, SEPIA_MAX, SEPIA_STEP, currentEffectValue);
           break;
         case 'marvin':
-          createEffectLevelSlider(0, 100, 1, currentEffectValue);
+          createEffectLevelSlider(INVERT_MIN, INVERT_MAX, INVERT_STEP, currentEffectValue);
           break;
         case 'phobos':
-          createEffectLevelSlider(0, 3, 0.1, currentEffectValue);
+          createEffectLevelSlider(BLUR_MIN, BLUR_MAX, BLUR_STEP, currentEffectValue);
           break;
         case 'heat':
-          createEffectLevelSlider(1, 3, 0.1, currentEffectValue);
+          createEffectLevelSlider(BRIGHTNESS_MIN, BRIGHTNESS_MAX, BRIGHTNESS_STEP, currentEffectValue);
           break;
       }
     }
@@ -127,13 +140,13 @@ const createEffectLevelSlider = (min, max, step, currentEffectValue) => {
     step: step,
     connect: 'lower',
     format: {
-      to: function (value) {
+      to: (value) => {
         if (Number.isInteger(value)) {
           return value.toFixed(0);
         }
         return value.toFixed(1);
       },
-      from: function (value) {
+      from: (value) => {
         return parseFloat(value);
       },
     },
