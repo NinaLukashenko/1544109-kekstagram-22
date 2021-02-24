@@ -175,3 +175,5 @@ const createEffectLevelSlider = (min, max, step, currentEffectValue) => {
     }
   });
 };
+
+openPictureUploadModal();
