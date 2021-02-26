@@ -36,4 +36,16 @@ const isEnterEvent = (evt) => {
   return evt.key === 'Enter';
 };
 
-export { randomNumber, checkMaxLength, isEscEvent, isEnterEvent };
+// ФУНКЦИЯ ДЛЯ ПРОВЕРКИ НАЛИЧИЯ В МАССИВЕ ОДИНАКОВЫХ ЭЛЕМЕНТОВ
+const hasDuplicate = (array) => {
+  return array.some((item, index, array) => {
+    return array.indexOf(item) !== index;
+  });
+};
+
+// Ф-я приводит все элементы массива к нижнему регистру
+const ignoreCase = (array) => {
+  return array.map(item => item.toLowerCase());
+}
+
+export { randomNumber, checkMaxLength, isEscEvent, isEnterEvent, hasDuplicate, ignoreCase };
