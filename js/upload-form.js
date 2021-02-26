@@ -22,7 +22,7 @@ hashtagElement.addEventListener('input', () => {
       break;
     // Проверяем наличие неверных символов (все кроме букв и цифр) начиная со второго символа ибо первый это решетка;
     } else if (onlyLettersAndDigits.test(hashtags[i].slice(1))) {
-      hashtagElement.setCustomValidity('Строка каждого чэш-тега после решётки должна состоять из букв и чисел');
+      hashtagElement.setCustomValidity('Строка каждого хэш-тега после решётки должна состоять из букв и чисел');
       break;
     } else if (hashtags[i].length === 1) {
       hashtagElement.setCustomValidity('Хэш-тег не может состоять только из одной решётки');
