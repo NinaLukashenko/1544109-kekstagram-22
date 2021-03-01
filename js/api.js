@@ -15,4 +15,17 @@ const getData = (onSuccess, onFail) => {
     .catch((error) => onFail(error));
 };
 
-export { getData };
+const sendData = (onSuccess, onFail, body) => {
+  fetch(
+    'https://22.javascript.pages.academy/kekstagram',
+    {
+      method: 'POST',
+      body,
+    },
+  )
+    .then(checkStatus)
+    .then(() => onSuccess())
+    .catch(() => onFail());
+}
+
+export { getData, sendData };

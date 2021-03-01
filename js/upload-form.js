@@ -1,4 +1,6 @@
 import { isEscEvent, hasDuplicate, ignoreCase } from './util.js';
+import { sendData } from './api.js';
+import { showAlert } from './message.js';
 
 const MAX_HASHTAG_LENGTH = 20;
 const MAX_HASHTAG_QUANTITY = 5;
@@ -74,3 +76,21 @@ commentElement.addEventListener('keydown', (evt) => {
     evt.stopPropagation();
   }
 });
+
+
+// ОТПРАВКА ФОРМЫ
+const setUploadFormSubmit = (onSuccess) => {
+  uploadFormElement.addEventListener('submit', (evt) => {
+    // Отмена отправки формы по-умочанию браузером
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(),
+      () => showAlert(),
+      new FormData(evt.target),
+    )
+  });
+};
+
+
+export { setUploadFormSubmit };
