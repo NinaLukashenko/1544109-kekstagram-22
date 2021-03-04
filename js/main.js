@@ -5,7 +5,7 @@ import './upload-modal.js';
 import './upload-form.js';
 import { getData } from './api.js';
 import { renderPicturesList } from './picture-list.js';
-import { showAlert } from './message.js';
+import { showAlert, showSuccessMessage } from './message.js';
 import { closePictureUploadModal } from './upload-modal.js';
 import { setUploadFormSubmit } from './upload-form.js';
 
@@ -16,4 +16,7 @@ getData(
 );
 
 // Отправка формы загрузки файла
-setUploadFormSubmit(closePictureUploadModal);
+setUploadFormSubmit( () => {
+  showSuccessMessage();
+  closePictureUploadModal();
+});

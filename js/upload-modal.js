@@ -208,4 +208,5 @@ const createEffectLevelSlider = (min, max, step, currentEffectValue) => {
   });
 };
 
+
 export { closePictureUploadModal }
