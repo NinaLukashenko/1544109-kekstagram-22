@@ -55,7 +55,9 @@ const showSuccessMessage = () => {
   });
 
   document.addEventListener('click', (evt) => {
-    if (evt.target !== messageFormElement) {
+    if (evt.target === messageFormElement) {
+      evt.stopPropagation();
+    } else {
       closeSuccessMessage();
     }
   });
@@ -92,7 +94,9 @@ const showErrorMessage = () => {
   });
 
   document.addEventListener('click', (evt) => {
-    if (evt.target !== messageFormElement) {
+    if (evt.target === messageFormElement) {
+      evt.stopPropagation();
+    } else {
       closeErrorMessage();
     }
   });
