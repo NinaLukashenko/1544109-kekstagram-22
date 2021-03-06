@@ -131,11 +131,7 @@ const clearForm = () => {
   picturePreviewElement.style.transform = 'scale(1)';
   // Эффект
   effectElements.forEach((item) => {
-    if (item.value === 'none') {
-      item.checked = true;
-    } else {
-      item.checked = false;
-    }
+    item.checked = item.value === 'none';
   })
   picturePreviewElement.style.filter = 'none';
   // Уровень єффекта

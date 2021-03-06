@@ -16,7 +16,7 @@ getData(
 );
 
 // Отправка формы загрузки файла
-setUploadFormSubmit( () => {
+setUploadFormSubmit(() => {
   showSuccessMessage();
   closePictureUploadModal();
 });
