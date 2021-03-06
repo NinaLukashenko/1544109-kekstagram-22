@@ -1,4 +1,6 @@
 import { isEscEvent, hasDuplicate, ignoreCase } from './util.js';
+import { sendData } from './api.js';
+import { showErrorMessage  } from './message.js';
 
 const MAX_HASHTAG_LENGTH = 20;
 const MAX_HASHTAG_QUANTITY = 5;
@@ -41,6 +43,7 @@ hashtagElement.addEventListener('input', () => {
       hashtagElement.setCustomValidity('');
     }
   }
+  setValidityStyles(hashtagElement);
   // Говорим браузеру, что нужно проверять валидность поля на каждый ввод символа, а не аж при отправке формы
   hashtagElement.reportValidity();
 
@@ -64,6 +67,7 @@ commentElement.addEventListener('input', () => {
     // Валидация ок - сбрасываем ошибку
     commentElement.setCustomValidity('');
   }
+  setValidityStyles(commentElement);
   // Говорим браузеру, что нужно проверять валидность поля на каждый ввод символа
   commentElement.reportValidity();
 });
@@ -74,3 +78,29 @@ commentElement.addEventListener('keydown', (evt) => {
     evt.stopPropagation();
   }
 });
+
+// Рисуем красные бордеры для полей, которые не прошли валидацию
+const setValidityStyles = (element) => {
+  if (element.validity.customError) {
+    element.style.outline = '2px solid red';
+  } else {
+    element.style.outline = 'unset';
+  }
+};
+
+// ОТПРАВКА ФОРМЫ
+const setUploadFormSubmit = (onSuccess) => {
+  uploadFormElement.addEventListener('submit', (evt) => {
+    // Отмена отправки формы по-умочанию браузером
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(),
+      () => showErrorMessage(),
+      new FormData(evt.target),
+    )
+  });
+};
+
+
+export { setUploadFormSubmit };

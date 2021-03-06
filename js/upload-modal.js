@@ -28,18 +28,23 @@ const pictureUploadModalElement = document.querySelector('.img-upload__overlay')
 const pictureUploadModalCloseElement = document.querySelector('#upload-cancel');
 // Элемент body
 const bodyElement = document.querySelector('body');
+// Форма
+const uploadFormElement = document.querySelector('.img-upload__form');
 
 // Масштаб:
-const scaleSmallerElement = document.querySelector('.scale__control--smaller');
-const scaleBiggerElement = document.querySelector('.scale__control--bigger');
-const scaleValueElement = document.querySelector('.scale__control--value');
-const picturePreviewElement = document.querySelector('.img-upload__preview img');
+const scaleSmallerElement = uploadFormElement.querySelector('.scale__control--smaller');
+const scaleBiggerElement = uploadFormElement.querySelector('.scale__control--bigger');
+const scaleValueElement = uploadFormElement.querySelector('.scale__control--value');
+const picturePreviewElement = uploadFormElement.querySelector('.img-upload__preview img');
 
 // Наложение эффекта на изображение:
-const effectListElement = document.querySelector('.effects__list');
-const effectLevelSliderElement = document.querySelector('.effect-level__slider');
-const effectLevelValueElement = document.querySelector('.effect-level__value');
+const effectListElement = uploadFormElement.querySelector('.effects__list');
+const effectElements = uploadFormElement.querySelectorAll('.effects__radio');
+const effectLevelSliderElement = uploadFormElement.querySelector('.effect-level__slider');
+const effectLevelValueElement = uploadFormElement.querySelector('.effect-level__value');
 
+const hashtagElement = uploadFormElement.querySelector('.text__hashtags');
+const commentElement = uploadFormElement.querySelector('.text__description');
 
 // Ф-я для ОТОБРАЖЕНИЯ ФОРМЫ РЕДАКТИРОВАНИЯ ФОТО
 const openPictureUploadModal = () => {
@@ -84,7 +89,7 @@ const openPictureUploadModal = () => {
 
       switch(currentEffectValue) {
         case 'none':
-          picturePreviewElement.style.filter = '';
+          picturePreviewElement.style.filter = 'none';
           break;
         case 'chrome':
           createEffectLevelSlider(GRAYSCALE_MIN, GRAYSCALE_MAX, GRAYSCALE_STEP, currentEffectValue);
@@ -111,14 +116,37 @@ pictureUploadElement.addEventListener('change', openPictureUploadModal);
 
 // Ф-я для СКРЫТИЯ ФОРМЫ РЕДАКТИРОВАНИЯ ФОТО
 const closePictureUploadModal = () => {
-  // Сбрасываем значение поля выбора файла
-  pictureUploadElement.files.FileList = [];
+  clearForm();
 
   pictureUploadModalElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
+
+// ОЧИСТКА ФОРМЫ
+const clearForm = () => {
+  // Масштаб
+  scaleValueElement.value = SCALE_DEFAULT;
+  picturePreviewElement.style.transform = 'scale(1)';
+  // Эффект
+  effectElements.forEach((item) => {
+    item.checked = item.value === 'none';
+  })
+  picturePreviewElement.style.filter = 'none';
+  // Уровень єффекта
+  if (effectLevelSliderElement.noUiSlider) {
+    effectLevelSliderElement.noUiSlider.destroy();
+  }
+  effectLevelValueElement.value = '';
+
+  // Хештег
+  hashtagElement.value = '';
+  // Коммент
+  commentElement.value = '';
+  // Файл
+  pictureUploadElement.value = '';
+}
 
 // Ф-я для обработчика события нажатия клавиши Esc при открытой модальной форме
 const onPopupEscKeydown = (evt) => {
@@ -175,3 +203,6 @@ const createEffectLevelSlider = (min, max, step, currentEffectValue) => {
     }
   });
 };
+
+
+export { closePictureUploadModal }
