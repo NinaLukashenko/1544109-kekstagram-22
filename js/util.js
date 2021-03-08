@@ -43,9 +43,15 @@ const hasDuplicate = (array) => {
   });
 };
 
+// ФУНКЦИЯ ДЛЯ УДАЛЕНИЯ ДУБЛИКАТОВ ИЗ МАССИВА
+// Взята из https://coderoad.ru/2218999/Удаление-дубликатов-из-массива-объектов-в-JavaScript
+const clearDuplicate = (array, keyField) => {
+  return array.filter((item, index, array) => array.findIndex(itemFindIndex => (itemFindIndex[keyField] === item[keyField])) === index);
+};
+
 // Ф-я приводит все элементы массива к нижнему регистру
 const ignoreCase = (array) => {
   return array.map(item => item.toLowerCase());
 }
 
-export { randomNumber, checkMaxLength, isEscEvent, isEnterEvent, hasDuplicate, ignoreCase };
+export { randomNumber, checkMaxLength, isEscEvent, isEnterEvent, hasDuplicate, ignoreCase, clearDuplicate };

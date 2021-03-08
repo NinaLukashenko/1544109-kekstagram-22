@@ -25,8 +25,10 @@ const renderPicturesList = (pictures) => {
     pictureElement.querySelector('.picture__comments').textContent = item.comments.length;
 
     pictureListFragment.appendChild(pictureElement);
-  })
+  });
 
+  // Очищаем блок с предыдущими фотографиями
+  pictureListElement.innerHTML = '';
   // Вставляем "коробочку" со всеми фотографиями в DOM
   pictureListElement.appendChild(pictureListFragment);
 };
