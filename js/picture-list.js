@@ -28,7 +28,12 @@ const renderPicturesList = (pictures) => {
   });
 
   // Очищаем блок с предыдущими фотографиями
-  pictureListElement.innerHTML = '';
+  Array.from(pictureListElement.children).forEach((item) => {
+    if (item.classList.contains('picture')) {
+      item.remove();
+    }
+  });
+
   // Вставляем "коробочку" со всеми фотографиями в DOM
   pictureListElement.appendChild(pictureListFragment);
 };
