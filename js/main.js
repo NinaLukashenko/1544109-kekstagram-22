@@ -14,9 +14,12 @@ import { setUploadFormSubmit } from './upload-form.js';
 
 const RERENDER_DELAY = 500;
 
+let photos = [];
+
 // Получение данных для отрисовки изображений-миниатюр
 getData(
   (pictures) => {
+    photos  = pictures;
     renderPicturesList(pictures);
     showImageFilter();
     setImageFilterClick(_.debounce(
@@ -32,3 +35,5 @@ setUploadFormSubmit(() => {
   showSuccessMessage();
   closePictureUploadModal();
 });
+
+export { photos };
