@@ -6,8 +6,6 @@ const pictureListElement = document.querySelector('.pictures');
 const pictureModalElement = document.querySelector('.big-picture');
 const pictureModalCloseElement = document.querySelector('.big-picture__cancel');
 const bodyElement = document.querySelector('body');
-const commentCountElement = document.querySelector('.social__comment-count');
-const commentsLoaderElement = document.querySelector('.comments-loader');
 
 
 // Вешаем обработчик события на блок с фотографиями по клику на какую-то из фотографий
@@ -26,10 +24,6 @@ const openPictureModal = (element) => {
   renderFullScreenPicture(element.id);
   // Убираем класс, который скрывает модальную форму с полноэкранным фото
   pictureModalElement.classList.remove('hidden');
-
-  // Прячим ненужные блоки:
-  commentCountElement.classList.add('hidden');
-  commentsLoaderElement.classList.add('hidden');
 
   // Убираем скролл у body
   bodyElement.classList.add('modal-open');
