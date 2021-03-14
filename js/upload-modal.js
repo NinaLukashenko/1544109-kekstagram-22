@@ -50,6 +50,7 @@ const commentElement = uploadFormElement.querySelector('.text__description');
 const openPictureUploadModal = () => {
   let currenScaleValue = SCALE_DEFAULT;
   scaleValueElement.value = `${currenScaleValue}%`;
+  scaleBiggerElement.disabled = true;
 
   pictureUploadModalElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
@@ -64,6 +65,9 @@ const openPictureUploadModal = () => {
       scaleValueElement.value = `${currenScaleValue}%`;
       picturePreviewElement.style.transform = `scale(${currenScaleValue / 100})`;
     }
+
+    scaleSmallerElement.disabled = currenScaleValue <= SCALE_MIN;
+    scaleBiggerElement.disabled = currenScaleValue >= SCALE_MAX;
   });
 
   // Обработчик наж. кн. масштабирования Плюс
@@ -73,6 +77,9 @@ const openPictureUploadModal = () => {
       scaleValueElement.value = `${currenScaleValue}%`;
       picturePreviewElement.style.transform = `scale(${currenScaleValue / 100})`;
     }
+
+    scaleSmallerElement.disabled = currenScaleValue <= SCALE_MIN;
+    scaleBiggerElement.disabled = currenScaleValue >= SCALE_MAX;
   });
 
   // Обработчик выбора эффекта
