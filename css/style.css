@@ -475,6 +475,12 @@ main {
   border-width: 0 2px;
 }
 
+.scale__control--smaller:disabled,
+.scale__control--bigger:disabled {
+  opacity: 0.75;
+  pointer-events: none;
+}
+
 .scale__control--bigger {
   border-radius: 0 50% 50% 0;
 }
