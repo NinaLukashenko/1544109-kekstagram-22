@@ -33,6 +33,7 @@ const closeSuccessMessage = () => {
   messageElement.remove();
 
   document.removeEventListener('keydown', onSuccessPopupEscKeydown);
+  document.removeEventListener('click', onSuccessModalClickOut);
 };
 
 const onSuccessPopupEscKeydown = (evt) => {
@@ -42,27 +43,28 @@ const onSuccessPopupEscKeydown = (evt) => {
   }
 };
 
+const onSuccessModalClickOut = (evt) => {
+  const messageFormElement = document.querySelector('.success__inner');
+  if (evt.target === messageFormElement) {
+    evt.stopPropagation();
+  } else {
+    closeSuccessMessage();
+  }
+}
+
 const showSuccessMessage = () => {
   const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
   const message = successMessageTemplate.cloneNode(true);
   mainElement.appendChild(message);
 
   const messageCloseButtonElement = message.querySelector('.success__button');
-  const messageFormElement = message.querySelector('.success__inner');
 
   messageCloseButtonElement.addEventListener('click', () => {
     closeSuccessMessage();
   });
 
-  document.addEventListener('click', (evt) => {
-    if (evt.target === messageFormElement) {
-      evt.stopPropagation();
-    } else {
-      closeSuccessMessage();
-    }
-  });
-
   document.addEventListener('keydown', onSuccessPopupEscKeydown);
+  document.addEventListener('click', onSuccessModalClickOut);
 };
 
 // Сообщение "ОШИБКА"
@@ -71,6 +73,7 @@ const closeErrorMessage = () => {
   messageElement.remove();
 
   document.removeEventListener('keydown', onErrorPopupEscKeydown);
+  document.removeEventListener('click', onErrorModalClickOut);
 };
 
 const onErrorPopupEscKeydown = (evt) => {
@@ -80,6 +83,15 @@ const onErrorPopupEscKeydown = (evt) => {
   }
 };
 
+const onErrorModalClickOut = (evt) => {
+  const messageFormElement = document.querySelector('.error__inner');
+  if (evt.target === messageFormElement) {
+    evt.stopPropagation();
+  } else {
+    closeErrorMessage();
+  }
+}
+
 const showErrorMessage = () => {
   const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
   const message = errorMessageTemplate.cloneNode(true);
@@ -87,21 +99,13 @@ const showErrorMessage = () => {
   mainElement.appendChild(message);
 
   const messageCloseButtonElement = message.querySelector('.error__button');
-  const messageFormElement = message.querySelector('.error__inner');
 
   messageCloseButtonElement.addEventListener('click', () => {
     closeErrorMessage();
   });
 
-  document.addEventListener('click', (evt) => {
-    if (evt.target === messageFormElement) {
-      evt.stopPropagation();
-    } else {
-      closeErrorMessage();
-    }
-  });
-
   document.addEventListener('keydown', onErrorPopupEscKeydown);
+  document.addEventListener('click', onErrorModalClickOut);
 };
 
 
