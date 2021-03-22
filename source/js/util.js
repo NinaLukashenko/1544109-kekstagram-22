@@ -20,20 +20,9 @@ const randomNumber = (from, to) => {
   return Math.floor(Math.random() * (to - from + 1) ) + from;
 };
 
-
-// ФУНКЦИЯ ДЛЯ ПРОВЕРКИ МАКСИМАЛЬНОЙ ДЛИНЫ СТРОКИ
-const checkMaxLength = (text, maxLength) => {
-  return text.length <= maxLength;
-};
-
 // ФУНКЦИЯ ДЛЯ ПРОВЕРКИ НАЖАТИЯ КЛАВИШИ Escape
 const isEscEvent = (evt) => {
   return (evt.key === 'Escape' || evt.key === 'Esc');
-};
-
-// ФУНКЦИЯ ДЛЯ ПРОВЕРКИ НАЖАТИЯ КЛАВИШИ Enter
-const isEnterEvent = (evt) => {
-  return evt.key === 'Enter';
 };
 
 // ФУНКЦИЯ ДЛЯ ПРОВЕРКИ НАЛИЧИЯ В МАССИВЕ ОДИНАКОВЫХ ЭЛЕМЕНТОВ
@@ -54,4 +43,4 @@ const ignoreCase = (array) => {
   return array.map(item => item.toLowerCase());
 }
 
-export { randomNumber, checkMaxLength, isEscEvent, isEnterEvent, hasDuplicate, ignoreCase, clearDuplicate };
+export { randomNumber, isEscEvent, hasDuplicate, ignoreCase, clearDuplicate };

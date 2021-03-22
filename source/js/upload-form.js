@@ -102,5 +102,4 @@ const setUploadFormSubmit = (onSuccess) => {
   });
 };
 
-
 export { setUploadFormSubmit };

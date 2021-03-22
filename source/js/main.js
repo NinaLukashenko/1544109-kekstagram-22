@@ -1,7 +1,6 @@
 /* global _:readonly */
 
 import './util.js';
-import './data.js';
 import './picture-modal.js';
 import './upload-picture.js';
 import './upload-modal.js';
