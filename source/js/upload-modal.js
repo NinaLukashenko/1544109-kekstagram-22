@@ -38,6 +38,7 @@ const scaleValueElement = uploadFormElement.querySelector('.scale__control--valu
 const picturePreviewElement = uploadFormElement.querySelector('.img-upload__preview img');
 
 // Наложение эффекта на изображение:
+const sliderContainerElement = uploadFormElement.querySelector('.img-upload__effect-level');
 const effectListElement = uploadFormElement.querySelector('.effects__list');
 const effectElements = uploadFormElement.querySelectorAll('.effects__radio');
 const effectLevelSliderElement = uploadFormElement.querySelector('.effect-level__slider');
@@ -50,7 +51,10 @@ const commentElement = uploadFormElement.querySelector('.text__description');
 const openPictureUploadModal = () => {
   let currenScaleValue = SCALE_DEFAULT;
   scaleValueElement.value = `${currenScaleValue}%`;
+  scaleSmallerElement.disabled = false;
   scaleBiggerElement.disabled = true;
+
+  sliderContainerElement.style.visibility = 'hidden';
 
   pictureUploadModalElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
@@ -94,25 +98,30 @@ const openPictureUploadModal = () => {
       }
       effectLevelValueElement.value = '';
 
-      switch(currentEffectValue) {
-        case 'none':
-          picturePreviewElement.style.filter = 'none';
-          break;
-        case 'chrome':
-          createEffectLevelSlider(GRAYSCALE_MIN, GRAYSCALE_MAX, GRAYSCALE_STEP, currentEffectValue);
-          break;
-        case 'sepia':
-          createEffectLevelSlider(SEPIA_MIN, SEPIA_MAX, SEPIA_STEP, currentEffectValue);
-          break;
-        case 'marvin':
-          createEffectLevelSlider(INVERT_MIN, INVERT_MAX, INVERT_STEP, currentEffectValue);
-          break;
-        case 'phobos':
-          createEffectLevelSlider(BLUR_MIN, BLUR_MAX, BLUR_STEP, currentEffectValue);
-          break;
-        case 'heat':
-          createEffectLevelSlider(BRIGHTNESS_MIN, BRIGHTNESS_MAX, BRIGHTNESS_STEP, currentEffectValue);
-          break;
+      if (currentEffectValue === 'none') {
+        sliderContainerElement.style.visibility = 'hidden';
+        // Прячем слайдер для эффекта "Оригинал"
+        picturePreviewElement.style.filter = 'none';
+      } else {
+        sliderContainerElement.style.visibility = 'visible';
+        // Создаем слайдер для выбранного эффекта
+        switch(currentEffectValue) {
+          case 'chrome':
+            createEffectLevelSlider(GRAYSCALE_MIN, GRAYSCALE_MAX, GRAYSCALE_STEP, currentEffectValue);
+            break;
+          case 'sepia':
+            createEffectLevelSlider(SEPIA_MIN, SEPIA_MAX, SEPIA_STEP, currentEffectValue);
+            break;
+          case 'marvin':
+            createEffectLevelSlider(INVERT_MIN, INVERT_MAX, INVERT_STEP, currentEffectValue);
+            break;
+          case 'phobos':
+            createEffectLevelSlider(BLUR_MIN, BLUR_MAX, BLUR_STEP, currentEffectValue);
+            break;
+          case 'heat':
+            createEffectLevelSlider(BRIGHTNESS_MIN, BRIGHTNESS_MAX, BRIGHTNESS_STEP, currentEffectValue);
+            break;
+        }
       }
     }
   })
