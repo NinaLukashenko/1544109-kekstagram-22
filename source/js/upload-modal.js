@@ -99,10 +99,12 @@ const openPictureUploadModal = () => {
       effectLevelValueElement.value = '';
 
       if (currentEffectValue === 'none') {
+        // Прячем контейнер для слайдера для эффекта "Оригинал"
         sliderContainerElement.style.visibility = 'hidden';
-        // Прячем слайдер для эффекта "Оригинал"
+        // Обнуляем наложенные эффекты
         picturePreviewElement.style.filter = 'none';
       } else {
+        // Отображаем контейнер для слайдера для других эффектов (НЕ "Оригинал")
         sliderContainerElement.style.visibility = 'visible';
         // Создаем слайдер для выбранного эффекта
         switch(currentEffectValue) {
